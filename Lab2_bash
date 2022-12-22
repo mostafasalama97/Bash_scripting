@@ -1,0 +1,119 @@
+<1>
+#!/usr/bin/bash
+echo "What is yout name?"
+read name
+echo "Hello $name"
+
+<2>
+#!/usr/bin/bash
+x=5
+export x
+/home/MAFarhoud/Lab2Bash/s2.sh
+
+#!/usr/bin/bash
+echo $x
+
+#!/usr/bin/bash
+x=5
+/home/MAFarhoud/Lab2Bash/s2.sh $x
+
+#!/usr/bin/bash
+echo $1
+
+<3>
+#!/usr/bin/bash
+<<comment
+if [ $# -eq 2 ]
+then
+        cp $1 $2
+else
+        echo "Please input only two arguments"
+fi
+comment
+cp $*
+
+<4>
+#!/usr/bin/bash
+if [ $# -eq 0 ]
+then
+        cd ~
+elif [ $# -eq 1 ]
+then
+        cd $1
+else
+        echo "Enter a correct directory"
+fi
+
+
+<5>
+#!/usr/bin/bash
+if [ $# -eq 0 ]
+then
+        ls
+elif [ $# -eq 1 ]
+then
+        ls $1
+else
+        echo "Enter a correct directory"
+fi
+
+<6>
+#!/usr/bin/bash
+if [ $# -eq 0 ]
+then
+        ls
+elif [ $# -eq 1 ]
+then
+        if [ $1 = "-l" ]
+        then
+                echo "list in long format"
+        elif [ $1 = "-a" ]
+        then
+                echo "list all entries including the hiding files"
+        elif [ $1 = "-d" ]
+        then
+                echo "if an argument is a directory, list only its name"
+        elif [ $1 = "-i" ]
+        then
+                echo "print inode number"
+        elif [ $1 = "-R" ]
+        then
+                echo "recursively list subdirectories"
+        else
+                echo "option does not exist"
+        fi
+else
+        echo "Enter a correct directory"
+fi
+   
+<7>
+#!/usr/bin/bash
+if [ -f $1 ]
+then
+        echo "File"
+elif [ -d $1 ]
+then
+        ls "Directory"
+fi
+if [ -r $1 ]
+then
+        echo "Read"
+fi
+if [ -w $1 ]
+then
+        echo "Write"
+fi
+if [ -x $1 ]
+then
+        echo "Execute"
+fi
+
+
+<8>
+#!/usr/bin/bash
+echo "What is your Logname?"
+read name
+homedir=`grep ^$name /etc/passwd | cut -d: -f6`
+ls -l $homedir
+cp -r $homedir/. /tmp 2> /dev/null
+ps -f -u $name
